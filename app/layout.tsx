@@ -12,13 +12,13 @@ import { Toaster } from 'react-hot-toast';
 import { Inter } from 'next/font/google';
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "@/components/page-transition";
+import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from 'next/navigation';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -62,10 +62,8 @@ function MainLayout({ children }: { children: React.ReactNode }) {
         <div className="px-8 h-20 flex items-center justify-between">
           <div className="flex items-center flex-1 space-x-12">
             {/* Logo */}
-            <Link href="/" className="flex items-center glow">
-              <span className="text-4xl font-bold tracking-tight">
-                NEURO<span className="text-[#40A6FF]">LOV</span>
-              </span>
+            <Link href="/" className="flex items-center">
+              <img src="/neurolov-logo.svg" alt="Neurolov" className="h-8" />
             </Link>
 
             {/* Search */}
@@ -96,7 +94,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
                 <DropdownMenuContent align="end" className="w-48 bg-black/90 backdrop-blur-xl border border-white/10">
                   <DropdownMenuItem 
                     className="text-gray-300 hover:text-white focus:text-white cursor-pointer"
-                    onClick={() => router.push('/profile')}
+                    onClick={() => router.push('/auth/profile')}
                   >
                     Profile
                   </DropdownMenuItem>
@@ -146,6 +144,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
           <div className="h-full">
             <AnimatePresence mode="wait">
               <PageTransition key={pathname}>
+                {/* Removed ComingSoonWrapper as we now handle overlays in individual components */}
                 {children}
               </PageTransition>
             </AnimatePresence>
